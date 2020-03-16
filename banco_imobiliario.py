@@ -365,21 +365,19 @@ def partida():
 
     if len(jogadores) == 1:
         ganhador = jogadores[0]
-        resultado = (rodadas, str(ganhador))
     else:
         ganhador = max(jogadores)
-        resultado = (rodadas, str(ganhador))
 
-    return resultado
+    return rodadas, str(ganhador)
 
 
 if __name__ == '__main__':
     rodadas = list()
     jogadores = list()
     for i in range(300):
-        resultado = partida()
-        rodadas.append(resultado[0])
-        jogadores.append(resultado[1])
+        cant_rodadas, ganhador = partida()
+        rodadas.append(cant_rodadas)
+        jogadores.append(ganhador)
 
     print(f'Terminam por time-out {rodadas.count(1000)} partidas.')
     print(f'Uma partida demora em média {(sum(rodadas) / len(rodadas)):.2f} turnos.')
@@ -392,5 +390,5 @@ if __name__ == '__main__':
     print(f'Porcentagem de vitórias do Cauteloso: {(cauteloso / len(jogadores) * 100):.2f} %.')
     print(f'Porcentagem de vitórias do Aleatório: {(aleatorio / len(jogadores) * 100):.2f} %.')
     print(f'Porcentagem de vitórias do Impulsivo: {(impulsivo / len(jogadores) * 100):.2f} %.')
-    vencedor = word_counts.most_common(1)
-    print(f'O comportamento que mais vence é {vencedor[0][0]} com {vencedor[0][1]} vitórias.')
+    vencedor, cantidad = word_counts.most_common(1)[0]
+    print(f'O comportamento que mais vence é {vencedor} com {cantidad} vitórias.')
