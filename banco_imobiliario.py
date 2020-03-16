@@ -53,140 +53,158 @@
 
 """
 >>> jogador_1 = Jogador()
->>> jogador_1.consultar_saldo()
+>>> jogador_1.saldo
 300
 >>> jogador_2 = Jogador()
->>> jogador_2.consultar_saldo()
+>>> jogador_2.saldo
 300
 >>> propriedade = Propriedade(custo_de_venda=30, valor_de_aluguel=5)
->>> propriedade.consultar_custo_de_venda()
+>>> propriedade.custo_de_venda
 30
->>> propriedade.consultar_valor_de_aluguel()
+>>> propriedade.valor_de_aluguel
 5
->>> print(propriedade.consultar_proprietario())
+>>> print(propriedade.proprietario)
 None
 >>> jogador_1.pagar_aluguel(jogador=jogador_2, propriedade=propriedade)
->>> jogador_1.consultar_saldo()
+>>> jogador_1.saldo
 295
->>> jogador_2.consultar_saldo()
+>>> jogador_2.saldo
 305
 >>> jogador_impulsivo = JogadorImpulsivo()
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 300
 >>> print(jogador_impulsivo)
-Jogador Impulsivo com saldo 300
->>> propriedade.nuevo_proprietario(jogador=jogador_impulsivo)
->>> print(propriedade.consultar_proprietario())
-Jogador Impulsivo com saldo 300
->>> propriedade.nuevo_proprietario()
->>> print(propriedade.consultar_proprietario())
+Impulsivo
+>>> propriedade.proprietario = jogador_impulsivo
+>>> print(propriedade.proprietario)
+Impulsivo
+>>> propriedade.proprietario = None
+>>> print(propriedade.proprietario)
 None
 >>> jogador_impulsivo.comprar_propriedade(propriedade=propriedade)
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 270
->>> print(propriedade.consultar_proprietario())
-Jogador Impulsivo com saldo 270
+>>> print(propriedade.proprietario)
+Impulsivo
 >>> len(jogador_impulsivo.propriedades)
 1
 >>> jogador_impulsivo.comprar_propriedade(propriedade=propriedade)
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 270
->>> print(propriedade.consultar_proprietario())
-Jogador Impulsivo com saldo 270
+>>> print(propriedade.proprietario)
+Impulsivo
 >>> len(jogador_impulsivo.propriedades)
 1
 >>> jogador_exigente = JogadorExigente()
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 300
 >>> jogador_exigente.comprar_propriedade(propriedade=propriedade)
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 295
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 275
 >>> propriedade_2 = Propriedade(custo_de_venda=100, valor_de_aluguel=51)
 >>> jogador_exigente.comprar_propriedade(propriedade=propriedade_2)
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 195
->>> print(propriedade_2.consultar_proprietario())
-Jogador Exigente com saldo 195
+>>> print(propriedade_2.proprietario)
+Exigente
 >>> len(jogador_exigente.propriedades)
 1
 >>> jogador_impulsivo.comprar_propriedade(propriedade=propriedade_2)
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 224
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 246
 >>> len(jogador_impulsivo.propriedades)
 1
 >>> jogador_cauteloso = JogadorCauteloso()
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 300
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 295
->>> jogador_impulsivo.consultar_saldo()
+>>> jogador_impulsivo.saldo
 229
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade_2)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 244
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 297
 >>> propriedade_3 = Propriedade(custo_de_venda=165, valor_de_aluguel=10)
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade_3)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 244
 >>> propriedade_4 = Propriedade(custo_de_venda=164, valor_de_aluguel=10)
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade_4)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 80
 >>> len(jogador_cauteloso.propriedades)
 1
 >>> jogador_cauteloso.ativo
 True
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade_2)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 29
->>> print(propriedade_4.consultar_proprietario())
-Jogador Cauteloso com saldo 29
+>>> print(propriedade_4.proprietario)
+Cauteloso
 >>> jogador_cauteloso.comprar_propriedade(propriedade=propriedade_2)
->>> jogador_cauteloso.consultar_saldo()
+>>> jogador_cauteloso.saldo
 -22
 >>> len(jogador_cauteloso.propriedades)
 0
->>> print(propriedade_4.consultar_proprietario())
+>>> print(propriedade_4.proprietario)
 None
 >>> jogador_cauteloso.ativo
 False
 >>> tabuleiro = Tabuleiro()
->>> tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=80, valor_de_aluguel=7))
->>> tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=180, valor_de_aluguel=17))
->>> tabuleiro.get_propriedade(0).consultar_custo_de_venda()
+>>> tabuleiro.set_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=7))
+>>> tabuleiro.set_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=17))
+>>> tabuleiro.get_propriedade(0).custo_de_venda
 80
->>> tabuleiro.get_propriedade(0).consultar_valor_de_aluguel()
+>>> tabuleiro.get_propriedade(0).valor_de_aluguel
 7
->>> tabuleiro.get_propriedade(1).consultar_custo_de_venda()
+>>> tabuleiro.get_propriedade(1).custo_de_venda
 180
->>> tabuleiro.get_propriedade(1).consultar_valor_de_aluguel()
+>>> tabuleiro.get_propriedade(1).valor_de_aluguel
 17
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 399
 >>> jogador_exigente.mover(5)
->>> jogador_exigente.get_posicao_tabuleiro()
+>>> jogador_exigente.posicao_tabuleiro
 5
 >>> jogador_exigente.mover(5)
 >>> jogador_exigente.mover(5)
->>> jogador_exigente.get_posicao_tabuleiro()
+>>> jogador_exigente.posicao_tabuleiro
 15
 >>> jogador_exigente.mover(5)
->>> jogador_exigente.get_posicao_tabuleiro()
+>>> jogador_exigente.posicao_tabuleiro
 0
->>> jogador_exigente.consultar_saldo()
+>>> jogador_exigente.saldo
 499
+>>> jogador_impulsivo.saldo
+229
+>>> jogador_exigente > jogador_impulsivo
+True
+>>> jogador_cauteloso = JogadorCauteloso()
+>>> jogador_cauteloso.saldo
+300
+>>> jogadores = []
+>>> jogadores.append(jogador_exigente)
+>>> jogadores.append(jogador_impulsivo)
+>>> jogadores.append(jogador_cauteloso)
+>>> print(max(jogadores))
+Exigente
+>>> jogador_cauteloso.saldo = 499
+>>> print(max(jogadores))
+Exigente
 """
 import random
+from functools import total_ordering
 from collections import Counter
 
 
+@total_ordering
 class Jogador:
 
     def __init__(self, saldo=300):
@@ -195,29 +213,29 @@ class Jogador:
         self.ativo = True
         self.propriedades = []
 
-    def consultar_saldo(self):
-        return self.saldo
+    def __eq__(self, other):
+        return self.saldo == other.saldo
+
+    def __lt__(self, other):
+        return self.saldo < other.saldo
 
     def pagar_aluguel(self, jogador, propriedade):
-        self.saldo -= propriedade.consultar_valor_de_aluguel()
-        jogador.saldo += propriedade.consultar_valor_de_aluguel()
+        self.saldo -= propriedade.valor_de_aluguel
+        jogador.saldo += propriedade.valor_de_aluguel
 
-    def comprar(self, propriedade, condicao):
-        if condicao:
-            self.saldo -= propriedade.consultar_custo_de_venda()
-            propriedade.nuevo_proprietario(jogador=self)
+    def comprar(self, propriedade, estrategia):
+        if estrategia:
+            self.saldo -= propriedade.custo_de_venda
+            propriedade.proprietario = self
             self.propriedades.append(propriedade)
-        elif propriedade.consultar_proprietario() is not None:
-            self.pagar_aluguel(propriedade.consultar_proprietario(), propriedade)
+        elif propriedade.proprietario is not None:
+            self.pagar_aluguel(propriedade.proprietario, propriedade)
 
         if self.saldo < 0:
             self.ativo = False
             for pro in self.propriedades:
-                pro.nuevo_proprietario()
+                pro.proprietario = None
             self.propriedades = []
-
-    def get_posicao_tabuleiro(self):
-        return self.posicao_tabuleiro
 
     def mover(self, num):
         if num + self.posicao_tabuleiro > 19:
@@ -230,58 +248,46 @@ class Jogador:
 class JogadorImpulsivo(Jogador):
 
     def comprar_propriedade(self, propriedade):
-        condicao = propriedade.consultar_proprietario() is None and self.saldo > propriedade.consultar_custo_de_venda()
-        self.comprar(propriedade=propriedade, condicao=condicao)
+        estrategia = propriedade.proprietario is None and self.saldo > propriedade.custo_de_venda
+        self.comprar(propriedade=propriedade, estrategia=estrategia)
 
     def __str__(self):
-        return f'Jogador Impulsivo com saldo {self.saldo}'
-
-    def sou(self):
-        return 'Impulsivo'
+        return f'Impulsivo'
 
 
 class JogadorExigente(Jogador):
 
     def comprar_propriedade(self, propriedade):
-        condicao = (propriedade.consultar_proprietario() is None
-                    and self.saldo > propriedade.consultar_custo_de_venda()
-                    and propriedade.consultar_valor_de_aluguel() > 50)
-        self.comprar(propriedade=propriedade, condicao=condicao)
+        estrategia = (propriedade.proprietario is None
+                      and self.saldo > propriedade.custo_de_venda
+                      and propriedade.valor_de_aluguel > 50)
+        self.comprar(propriedade=propriedade, estrategia=estrategia)
 
     def __str__(self):
-        return f'Jogador Exigente com saldo {self.saldo}'
-
-    def sou(self):
-        return 'Exigente'
+        return f'Exigente'
 
 
 class JogadorCauteloso(Jogador):
 
     def comprar_propriedade(self, propriedade):
-        condicao = (propriedade.consultar_proprietario() is None
-                    and self.saldo - 80 >= propriedade.consultar_custo_de_venda())
-        self.comprar(propriedade=propriedade, condicao=condicao)
+        estrategia = (propriedade.proprietario is None
+                      and self.saldo - 80 >= propriedade.custo_de_venda)
+        self.comprar(propriedade=propriedade, estrategia=estrategia)
 
     def __str__(self):
-        return f'Jogador Cauteloso com saldo {self.saldo}'
-
-    def sou(self):
-        return 'Cauteloso'
+        return f'Cauteloso'
 
 
 class JogadorAleatorio(Jogador):
 
     def comprar_propriedade(self, propriedade):
-        condicao = (propriedade.consultar_proprietario() is None
-                    and self.saldo > propriedade.consultar_custo_de_venda()
-                    and bool(random.randrange(2)))
-        self.comprar(propriedade=propriedade, condicao=condicao)
+        estrategia = (propriedade.proprietario is None
+                      and self.saldo > propriedade.custo_de_venda
+                      and bool(random.randrange(2)))
+        self.comprar(propriedade=propriedade, estrategia=estrategia)
 
     def __str__(self):
-        return f'Jogador Aleatório com saldo {self.saldo}'
-
-    def sou(self):
-        return 'Aleatório'
+        return f'Aleatório'
 
 
 class Propriedade:
@@ -291,29 +297,14 @@ class Propriedade:
         self.valor_de_aluguel = valor_de_aluguel
         self.proprietario = None
 
-    def consultar_valor_de_aluguel(self):
-        return self.valor_de_aluguel
-
-    def consultar_custo_de_venda(self):
-        return self.custo_de_venda
-
-    def consultar_proprietario(self):
-        return self.proprietario
-
-    def nuevo_proprietario(self, jogador=None):
-        self.proprietario = jogador
-
-    def __str__(self):
-        return f'Custo de venda {self.custo_de_venda}, valor de aluguel {self.valor_de_aluguel}, proprietario {self.proprietario}.'
-
 
 class Tabuleiro:
 
     def __init__(self):
         self.tablero = []
 
-    def agregar_propriedades(self, propriedades):
-        self.tablero.append(propriedades)
+    def set_propriedade(self, propriedade):
+        self.tablero.append(propriedade)
 
     def get_propriedade(self, num):
         return self.tablero[num]
@@ -329,32 +320,32 @@ def partida():
     random.shuffle(jogadores, random.random)
 
     tabuleiro = Tabuleiro()
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=80, valor_de_aluguel=8))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=180, valor_de_aluguel=51))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=200, valor_de_aluguel=60))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=100, valor_de_aluguel=25))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=150, valor_de_aluguel=35))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=170, valor_de_aluguel=52))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=160, valor_de_aluguel=45))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=140, valor_de_aluguel=40))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=210, valor_de_aluguel=70))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=130, valor_de_aluguel=55))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=120, valor_de_aluguel=33))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=220, valor_de_aluguel=75))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=90, valor_de_aluguel=25))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=270, valor_de_aluguel=100))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=110, valor_de_aluguel=44))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=125, valor_de_aluguel=55))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=70, valor_de_aluguel=20))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=95, valor_de_aluguel=35))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=280, valor_de_aluguel=70))
-    tabuleiro.agregar_propriedades(Propriedade(custo_de_venda=175, valor_de_aluguel=75))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=8))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=51))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=200, valor_de_aluguel=60))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=100, valor_de_aluguel=25))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=150, valor_de_aluguel=35))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=170, valor_de_aluguel=52))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=160, valor_de_aluguel=45))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=140, valor_de_aluguel=40))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=210, valor_de_aluguel=70))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=130, valor_de_aluguel=55))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=120, valor_de_aluguel=33))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=220, valor_de_aluguel=75))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=90, valor_de_aluguel=25))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=270, valor_de_aluguel=100))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=110, valor_de_aluguel=44))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=125, valor_de_aluguel=55))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=70, valor_de_aluguel=20))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=95, valor_de_aluguel=35))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=280, valor_de_aluguel=70))
+    tabuleiro.set_propriedade(Propriedade(custo_de_venda=175, valor_de_aluguel=75))
 
     rodadas = 0
     while rodadas < 1000 and len(jogadores) > 1:
         for jogador in jogadores:
             jogador.mover(random.randint(0, 5))
-            posicao_tabuleiro = jogador.get_posicao_tabuleiro()
+            posicao_tabuleiro = jogador.posicao_tabuleiro
             propriedade = tabuleiro.get_propriedade(posicao_tabuleiro)
             jogador.comprar_propriedade(propriedade=propriedade)
 
@@ -365,14 +356,10 @@ def partida():
 
     if len(jogadores) == 1:
         ganhador = jogadores[0]
-        resultado = (rodadas, ganhador.sou())
+        resultado = (rodadas, str(ganhador))
     else:
-        saldo = -1
-        for jogador in jogadores:
-            if jogador.consultar_saldo() > saldo:
-                saldo = jogador.consultar_saldo()
-                ganhador = jogador
-        resultado = (rodadas, ganhador.sou())
+        ganhador = max(jogadores)
+        resultado = (rodadas, str(ganhador))
 
     return resultado
 
@@ -386,15 +373,15 @@ if __name__ == '__main__':
         jogadores.append(resultado[1])
 
     print(f'Terminam por time-out {rodadas.count(1000)} partidas.')
-    print(f'Uma partida demora em média {(sum(rodadas)/len(rodadas)):.2f} turnos.')
+    print(f'Uma partida demora em média {(sum(rodadas) / len(rodadas)):.2f} turnos.')
     word_counts = Counter(jogadores)
     exigente = word_counts['Exigente']
     cauteloso = word_counts['Cauteloso']
     aleatorio = word_counts['Aleatório']
     impulsivo = word_counts['Impulsivo']
-    print(f'Porcentagem de vitórias do Exigente: {(exigente / 300 * 100):.2f} %.')
-    print(f'Porcentagem de vitórias do Cauteloso: {(cauteloso / 300 * 100):.2f} %.')
-    print(f'Porcentagem de vitórias do Aleatório: {(aleatorio / 300 * 100):.2f} %.')
-    print(f'Porcentagem de vitórias do Impulsivo: {(impulsivo / 300 * 100):.2f} %.')
+    print(f'Porcentagem de vitórias do Exigente: {(exigente / len(jogadores) * 100):.2f} %.')
+    print(f'Porcentagem de vitórias do Cauteloso: {(cauteloso / len(jogadores) * 100):.2f} %.')
+    print(f'Porcentagem de vitórias do Aleatório: {(aleatorio / len(jogadores) * 100):.2f} %.')
+    print(f'Porcentagem de vitórias do Impulsivo: {(impulsivo / len(jogadores) * 100):.2f} %.')
     vencedor = word_counts.most_common(1)
     print(f'O comportamento que mais vence é {vencedor[0][0]} com {vencedor[0][1]} vitórias.')
