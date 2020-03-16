@@ -257,7 +257,7 @@ class Jogador:
 class JogadorImpulsivo(Jogador):
 
     def comprar_propriedade(self, propriedade):
-        estrategia = propriedade.proprietario is None and self.saldo > propriedade.custo_de_venda
+        estrategia = propriedade.proprietario is None and self.saldo >= propriedade.custo_de_venda
         self.comprar(propriedade=propriedade, estrategia=estrategia)
 
     def __str__(self):
@@ -268,7 +268,7 @@ class JogadorExigente(Jogador):
 
     def comprar_propriedade(self, propriedade):
         estrategia = (propriedade.proprietario is None
-                      and self.saldo > propriedade.custo_de_venda
+                      and self.saldo >= propriedade.custo_de_venda
                       and propriedade.valor_de_aluguel > 50)
         self.comprar(propriedade=propriedade, estrategia=estrategia)
 
@@ -291,7 +291,7 @@ class JogadorAleatorio(Jogador):
 
     def comprar_propriedade(self, propriedade):
         estrategia = (propriedade.proprietario is None
-                      and self.saldo > propriedade.custo_de_venda
+                      and self.saldo >= propriedade.custo_de_venda
                       and bool(random.randrange(2)))
         self.comprar(propriedade=propriedade, estrategia=estrategia)
 
@@ -374,8 +374,8 @@ def partida():
 
 
 if __name__ == '__main__':
-    rodadas = []
-    jogadores = []
+    rodadas = list()
+    jogadores = list()
     for i in range(300):
         resultado = partida()
         rodadas.append(resultado[0])
