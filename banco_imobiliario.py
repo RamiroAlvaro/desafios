@@ -158,8 +158,8 @@ None
 >>> jogador_cauteloso.ativo
 False
 >>> tabuleiro = Tabuleiro()
->>> tabuleiro.set_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=7))
->>> tabuleiro.set_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=17))
+>>> tabuleiro.add_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=7))
+>>> tabuleiro.add_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=17))
 >>> tabuleiro.get_propriedade(0).custo_de_venda
 80
 >>> tabuleiro.get_propriedade(0).valor_de_aluguel
@@ -198,6 +198,12 @@ Exigente
 >>> jogador_cauteloso.saldo = 499
 >>> print(max(jogadores))
 Exigente
+>>> jogador_cauteloso.saldo = 500
+>>> print(max(jogadores))
+Cauteloso
+>>> jogador_impulsivo.saldo = 500
+>>> print(max(jogadores))
+Impulsivo
 """
 import random
 from functools import total_ordering
@@ -211,13 +217,16 @@ class Jogador:
         self.saldo = saldo
         self.posicao_tabuleiro = 0
         self.ativo = True
-        self.propriedades = []
+        self.propriedades = list()
 
     def __eq__(self, other):
         return self.saldo == other.saldo
 
     def __lt__(self, other):
         return self.saldo < other.saldo
+
+    def add_propriedade(self, propriedade):
+        self.propriedades.append(propriedade)
 
     def pagar_aluguel(self, jogador, propriedade):
         self.saldo -= propriedade.valor_de_aluguel
@@ -227,7 +236,7 @@ class Jogador:
         if estrategia:
             self.saldo -= propriedade.custo_de_venda
             propriedade.proprietario = self
-            self.propriedades.append(propriedade)
+            self.add_propriedade(propriedade)
         elif propriedade.proprietario is not None:
             self.pagar_aluguel(propriedade.proprietario, propriedade)
 
@@ -235,7 +244,7 @@ class Jogador:
             self.ativo = False
             for pro in self.propriedades:
                 pro.proprietario = None
-            self.propriedades = []
+            self.propriedades = list()
 
     def mover(self, num):
         if num + self.posicao_tabuleiro > 19:
@@ -301,9 +310,9 @@ class Propriedade:
 class Tabuleiro:
 
     def __init__(self):
-        self.tablero = []
+        self.tablero = list()
 
-    def set_propriedade(self, propriedade):
+    def add_propriedade(self, propriedade):
         self.tablero.append(propriedade)
 
     def get_propriedade(self, num):
@@ -320,26 +329,26 @@ def partida():
     random.shuffle(jogadores, random.random)
 
     tabuleiro = Tabuleiro()
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=8))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=51))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=200, valor_de_aluguel=60))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=100, valor_de_aluguel=25))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=150, valor_de_aluguel=35))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=170, valor_de_aluguel=52))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=160, valor_de_aluguel=45))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=140, valor_de_aluguel=40))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=210, valor_de_aluguel=70))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=130, valor_de_aluguel=55))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=120, valor_de_aluguel=33))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=220, valor_de_aluguel=75))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=90, valor_de_aluguel=25))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=270, valor_de_aluguel=100))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=110, valor_de_aluguel=44))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=125, valor_de_aluguel=55))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=70, valor_de_aluguel=20))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=95, valor_de_aluguel=35))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=280, valor_de_aluguel=70))
-    tabuleiro.set_propriedade(Propriedade(custo_de_venda=175, valor_de_aluguel=75))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=80, valor_de_aluguel=8))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=180, valor_de_aluguel=51))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=200, valor_de_aluguel=60))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=100, valor_de_aluguel=25))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=150, valor_de_aluguel=35))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=170, valor_de_aluguel=52))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=160, valor_de_aluguel=45))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=140, valor_de_aluguel=40))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=210, valor_de_aluguel=70))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=130, valor_de_aluguel=55))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=120, valor_de_aluguel=33))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=220, valor_de_aluguel=75))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=90, valor_de_aluguel=25))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=270, valor_de_aluguel=100))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=110, valor_de_aluguel=44))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=125, valor_de_aluguel=55))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=70, valor_de_aluguel=20))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=95, valor_de_aluguel=35))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=280, valor_de_aluguel=70))
+    tabuleiro.add_propriedade(Propriedade(custo_de_venda=175, valor_de_aluguel=75))
 
     rodadas = 0
     while rodadas < 1000 and len(jogadores) > 1:
