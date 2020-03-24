@@ -228,14 +228,14 @@ class Jogador:
         if estrategia:
             self.saldo -= propriedade.custo_de_venda
             propriedade.proprietario = self
-            self.add_propriedade(propriedade)
+            self.add_propriedade(propriedade=propriedade)
         elif propriedade.proprietario is not None:
-            self.pagar_aluguel(propriedade.proprietario, propriedade)
+            self.pagar_aluguel(jogador=propriedade.proprietario, propriedade=propriedade)
 
         if self.saldo < 0:
             self.ativo = False
-            for pro in self.propriedades:
-                pro.proprietario = None
+            for propriedade in self.propriedades:
+                propriedade.proprietario = None
             self.propriedades = list()
 
     def mover(self, num):
@@ -306,8 +306,8 @@ class Tabuleiro:
                                     valor_de_aluguel=(random.randint(10, 100)))
                         for _ in range(tamanho_tabuleiro)]
 
-    def get_propriedade(self, num):
-        return self.tablero[num]
+    def get_propriedade(self, posicao_tabuleiro):
+        return self.tablero[posicao_tabuleiro]
 
 
 def partida():
@@ -324,9 +324,9 @@ def partida():
     rodadas = 0
     while rodadas < 1000 and len(jogadores) > 1:
         for jogador in jogadores:
-            jogador.mover(random.randint(0, 5))
+            jogador.mover(num=random.randint(1, 6))
             posicao_tabuleiro = jogador.posicao_tabuleiro
-            propriedade = tabuleiro.get_propriedade(posicao_tabuleiro)
+            propriedade = tabuleiro.get_propriedade(posicao_tabuleiro=posicao_tabuleiro)
             jogador.comprar_propriedade(propriedade=propriedade)
 
             if not jogador.ativo:
