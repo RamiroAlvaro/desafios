@@ -44,13 +44,12 @@ else:
     rows = bs.findAll('td', {'class': 'B3'})
 
     days = []
-    regex = r'\xa0\xa0(....) (...)-(..)'
-
+    regex = re.compile(r'(\d{4}) (\w{3})-(\s)?(\d{1,2})')
     for day in weeks:
         m = re.search(regex, day.get_text())
-        date_str = f'{m.group(1)} {m.group(2)} {m.group(3)}'
+        date_str = f'{m.group(1)} {m.group(2)} {m.group(4)}'
         date_time_obj = datetime.datetime.strptime(date_str, '%Y %b %d')
-        for i in range(0, 5):
+        for i in range(5):
             days.append(f'{date_time_obj.date() + datetime.timedelta(days=i)}')
 
     # completing missing data with the previous or subsequent day
