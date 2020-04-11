@@ -24,21 +24,19 @@
 
 
 import csv
-import datetime
 import re
-from urllib.request import urlopen
-from urllib.error import HTTPError, URLError
+import requests
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
+res = requests.get('https://www.eia.gov/dnav/ng/hist/rngwhhdD.htm')
 try:
-    html = urlopen('https://www.eia.gov/dnav/ng/hist/rngwhhdD.htm')
-except HTTPError as e:
-    print(e)
-except URLError as e:
-    print(e)
-else:
+    res.raise_for_status()
+except Exception as exc:
+    print(f'There was a problem: {exc}')
 
-    bs = BeautifulSoup(html.read(), 'html.parser')
+else:
+    bs = BeautifulSoup(res.text, 'html.parser')
 
     weeks = bs.findAll('td', {'class': 'B6'})
     rows = bs.findAll('td', {'class': 'B3'})
@@ -46,11 +44,11 @@ else:
     days = []
     regex = re.compile(r'(\d{4}) (\w{3})-(\s)?(\d{1,2})')
     for day in weeks:
-        m = re.search(regex, day.get_text())
-        date_str = f'{m.group(1)} {m.group(2)} {m.group(4)}'
-        date_time_obj = datetime.datetime.strptime(date_str, '%Y %b %d')
+        mo = regex.search(day.get_text())
+        date_str = f'{mo.group(1)} {mo.group(2)} {mo.group(4)}'
+        date_time_obj = datetime.strptime(date_str, '%Y %b %d')
         for i in range(5):
-            days.append(f'{date_time_obj.date() + datetime.timedelta(days=i)}')
+            days.append(f'{date_time_obj.date() + timedelta(days=i)}')
 
     # completing missing data with the previous or subsequent day
     for i, cell in enumerate(rows):
