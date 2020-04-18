@@ -60,7 +60,7 @@ def print_words(filename):
 def print_top(filename):
     words_qty = read_and_count(filename)
     words_qty.sort(key=order_by_quantity, reverse=True)
-    return print(''.join(f'{word} {qty}\n' for word, qty in words_qty[:10]))
+    return print(''.join(f'{word} {qty}\n' for word, qty in words_qty[:20]))
 
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
