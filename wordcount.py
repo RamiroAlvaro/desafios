@@ -39,11 +39,6 @@ def order_by_quantity(word_qty):
     return qty, word
 
 
-def order_alphabetically(word_qty):
-    word, qty = word_qty
-    return word, qty
-
-
 def read_and_count(filename):
     with open(filename, 'rt') as f:
         data = f.read()
@@ -53,18 +48,16 @@ def read_and_count(filename):
 
 def print_words(filename):
     words_qty = read_and_count(filename)
-    words_qty.sort(key=order_alphabetically)
-    return print(''.join(f'{word} {qty}\n' for word, qty in words_qty))
+    words_qty.sort()
+    return '\n'.join(f'{word} {qty}' for word, qty in words_qty)
 
 
-def print_top(filename):
+def print_top(filename, limit=20):
     words_qty = read_and_count(filename)
     words_qty.sort(key=order_by_quantity, reverse=True)
-    return print(''.join(f'{word} {qty}\n' for word, qty in words_qty[:20]))
+    return '\n'.join(f'{word} {qty}' for word, qty in words_qty[:limit])
 
 
-# A função abaixo chama print_words() ou print_top() de acordo com os
-# parêtros do programa.
 def main():
     if len(sys.argv) != 3:
         print('Utilização: ./wordcount.py {--count | --topcount} file')
@@ -73,9 +66,9 @@ def main():
     option = sys.argv[1]
     filename = sys.argv[2]
     if option == '--count':
-        print_words(filename)
+        print(print_words(filename))
     elif option == '--topcount':
-        print_top(filename)
+        print(print_top(filename))
     else:
         print('unknown option: ' + option)
         sys.exit(1)
