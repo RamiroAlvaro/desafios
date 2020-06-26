@@ -13,7 +13,7 @@ from operator import itemgetter
 
 
 def sort_last(tuples):
-    return sorted(tuples, key=itemgetter(1))
+    return sorted(tuples, key=itemgetter(-1))
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
