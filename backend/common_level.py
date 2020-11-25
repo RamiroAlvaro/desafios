@@ -47,3 +47,22 @@ def delivery_price(total_price, dict_delivery_fees_range_prices):
         if total_price in value:
             return key
     return 0
+
+
+def output_process(carts, dict_articles_price, dict_delivery_fees_range_prices={}, flag=False):
+    dict_partial_result = {}
+    total = 0
+    result = []
+
+    for item in carts:
+        for products in item['items']:
+            article_id = products['article_id']
+            total += dict_articles_price[article_id] * products['quantity']
+        if flag:
+            total += delivery_price(int(total), dict_delivery_fees_range_prices)
+        dict_partial_result['id'] = item['id']
+        dict_partial_result['total'] = int(total)
+        result.append(dict_partial_result)
+        total = 0
+        dict_partial_result = {}
+    return result

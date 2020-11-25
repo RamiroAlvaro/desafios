@@ -1,4 +1,4 @@
-from backend.common_level import read, write, articles_id_price
+from backend.common_level import read, write, articles_id_price, output_process
 
 data = read('data.json')
 articles = data['articles']
@@ -6,19 +6,7 @@ carts = data['carts']
 
 dict_articles_price = articles_id_price(articles)
 
-dict_partial_result = {}
-total = 0
-result = []
-
-for item in carts:
-    for products in item['items']:
-        article_id = products['article_id']
-        total += dict_articles_price[article_id] * products['quantity']
-    dict_partial_result['id'] = item['id']
-    dict_partial_result['total'] = total
-    result.append(dict_partial_result)
-    total = 0
-    dict_partial_result = {}
+result = output_process(carts, dict_articles_price)
 
 write('output_result.json', result)
 
