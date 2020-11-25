@@ -1,31 +1,12 @@
-import json
-import sys
+from backend.common_level import read, write, articles_id_price, delivery_fees_range_prices, delivery_price
 
-with open('data.json', 'r') as f:
-    data = json.load(f)
-
+data = read('data.json')
 articles = data['articles']
 carts = data['carts']
 delivery_fees = data['delivery_fees']
 
-dict_articles_price = {item['id']: item['price'] for item in articles}
-dict_delivery_fees_range_prices = {}
-
-for element_dict in delivery_fees:
-    max_price = element_dict['eligible_transaction_volume']['max_price']
-    min_price = element_dict['eligible_transaction_volume']['min_price']
-    if not max_price:
-        rank = range(min_price, sys.maxsize ** 10)
-    else:
-        rank = range(min_price, max_price)
-    dict_delivery_fees_range_prices[element_dict['price']] = rank
-
-
-def delivery_price(total_price):
-    for key, value in dict_delivery_fees_range_prices.items():
-        if total_price in value:
-            return key
-    return 0
+dict_articles_price = articles_id_price(articles)
+dict_delivery_fees_range_prices = delivery_fees_range_prices(delivery_fees)
 
 
 dict_partial_result = {}
@@ -36,12 +17,13 @@ for item in carts:
     for products in item['items']:
         article_id = products['article_id']
         total += dict_articles_price[article_id] * products['quantity']
-    total += delivery_price(total)
+    total += delivery_price(total, dict_delivery_fees_range_prices)
     dict_partial_result['id'] = item['id']
     dict_partial_result['total'] = total
     result.append(dict_partial_result)
     total = 0
     dict_partial_result = {}
 
-with open('output_result.json', 'w') as f:
-    json.dump({'carts': result}, f)
+write('output_result.json', result)
+
+assert read('output_result.json') == read('output.json')

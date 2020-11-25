@@ -1,12 +1,10 @@
-import json
+from backend.common_level import read, write, articles_id_price
 
-with open('data.json', 'r') as f:
-    data = json.load(f)
-
+data = read('data.json')
 articles = data['articles']
 carts = data['carts']
 
-dict_articles_price = {item['id']: item['price'] for item in articles}
+dict_articles_price = articles_id_price(articles)
 
 dict_partial_result = {}
 total = 0
@@ -22,5 +20,6 @@ for item in carts:
     total = 0
     dict_partial_result = {}
 
-with open('output_result.json', 'w') as f:
-    json.dump({'carts': result}, f)
+write('output_result.json', result)
+
+assert read('output_result.json') == read('output.json')
