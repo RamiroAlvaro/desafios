@@ -1,5 +1,4 @@
-from backend.common_level import read, write, articles_id_price, delivery_fees_range_prices, delivery_price, \
-    output_process
+from backend.common_level import read, write, articles_id_price, delivery_fees_range_prices, output_process
 
 data = read('data.json')
 articles = data['articles']
