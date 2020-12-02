@@ -33,20 +33,19 @@ def delivery_fees_range_prices(delivery_fees):
 
     for element_dict in delivery_fees:
         max_price = element_dict['eligible_transaction_volume']['max_price']
-        min_price = element_dict['eligible_transaction_volume']['min_price']
         if not max_price:
-            rank = range(min_price, sys.maxsize ** 10)
+            upper_bound = sys.maxsize ** 10
         else:
-            rank = range(min_price, max_price)
-        dict_delivery_fees_range_prices[element_dict['price']] = rank
+            upper_bound = max_price
+        dict_delivery_fees_range_prices[upper_bound] = element_dict['price']
     return dict_delivery_fees_range_prices
 
 
 def delivery_price(total_price, dict_delivery_fees_range_prices):
-    for key, value in dict_delivery_fees_range_prices.items():
-        if total_price in value:
-            return key
-    return 0
+    for upper_bound, value in dict_delivery_fees_range_prices.items():
+        if total_price < upper_bound:
+            break
+    return value
 
 
 def output_process(carts, dict_articles_price, dict_delivery_fees_range_prices={}, flag=False):
