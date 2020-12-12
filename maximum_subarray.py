@@ -29,4 +29,5 @@ assert max_subarray([]) == ([], 0)
 assert max_subarray([11]) == ([11], 11)
 assert max_subarray([1, 2, 3, 4]) == ([1, 2, 3, 4], 10)
 assert max_subarray([-1, -2, -3, -4]) == ([-1], -1)
+assert max_subarray([-1, -2, 3, -3, -4]) == ([3], 3)
 
