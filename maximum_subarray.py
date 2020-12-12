@@ -38,8 +38,8 @@ def max_subarray_linear(list_):
     result = list_[0]
     sum_ = list_[0]
     stop = len(list_)
-    for i in range(1, stop):
-        sum_ = max(list_[i], sum_ + list_[i])
+    for index in range(1, stop):
+        sum_ = max(list_[index], sum_ + list_[index])
         result = max(result, sum_)
     return result
 
