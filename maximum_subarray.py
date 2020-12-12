@@ -6,7 +6,7 @@ For example, given the array [−2,1,−3,4,−1,2,1,−5,4], the contiguous sub
 """
 
 
-def max_subarray(list_):
+def max_subarray_quadratic(list_):
     if not list_:
         return list_, 0
     stop = len(list_)
@@ -22,12 +22,33 @@ def max_subarray(list_):
     return result, sum_
 
 
-assert max_subarray([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == ([4, -1, 2, 1], 6)
-assert max_subarray([10, -1, -3, -4, -1, 2, 1, -5, 4]) == ([10], 10)
-assert max_subarray([1, -1, -3, -4, -1, 2, 1, -5, 9]) == ([9], 9)
-assert max_subarray([]) == ([], 0)
-assert max_subarray([11]) == ([11], 11)
-assert max_subarray([1, 2, 3, 4]) == ([1, 2, 3, 4], 10)
-assert max_subarray([-1, -2, -3, -4]) == ([-1], -1)
-assert max_subarray([-1, -2, 3, -3, -4]) == ([3], 3)
+assert max_subarray_quadratic([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == ([4, -1, 2, 1], 6)
+assert max_subarray_quadratic([10, -1, -3, -4, -1, 2, 1, -5, 4]) == ([10], 10)
+assert max_subarray_quadratic([1, -1, -3, -4, -1, 2, 1, -5, 9]) == ([9], 9)
+assert max_subarray_quadratic([]) == ([], 0)
+assert max_subarray_quadratic([11]) == ([11], 11)
+assert max_subarray_quadratic([1, 2, 3, 4]) == ([1, 2, 3, 4], 10)
+assert max_subarray_quadratic([-1, -2, -3, -4]) == ([-1], -1)
+assert max_subarray_quadratic([-1, -2, 3, -3, -4]) == ([3], 3)
 
+
+def max_subarray_linear(list_):
+    if not list_:
+        return list_, 0
+    result = list_[0]
+    sum_ = list_[0]
+    stop = len(list_)
+    for i in range(1, stop):
+        sum_ = max(list_[i], sum_ + list_[i])
+        result = max(result, sum_)
+    return result
+
+
+assert max_subarray_linear([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
+assert max_subarray_linear([10, -1, -3, -4, -1, 2, 1, -5, 4]) == 10
+assert max_subarray_linear([1, -1, -3, -4, -1, 2, 1, -5, 9]) == 9
+assert max_subarray_linear([]) == ([], 0)
+assert max_subarray_linear([11]) == 11
+assert max_subarray_linear([1, 2, 3, 4]) == 10
+assert max_subarray_linear([-1, -2, -3, -4]) == -1
+assert max_subarray_linear([-1, -2, 3, -3, -4]) == 3
