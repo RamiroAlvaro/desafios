@@ -34,7 +34,7 @@ assert max_subarray_quadratic([-1, -2, 3, -3, -4]) == ([3], 3)
 
 def max_subarray_linear(list_):
     if not list_:
-        return list_, 0
+        return 0
     result = list_[0]
     sum_ = list_[0]
     stop = len(list_)
@@ -47,7 +47,7 @@ def max_subarray_linear(list_):
 assert max_subarray_linear([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
 assert max_subarray_linear([10, -1, -3, -4, -1, 2, 1, -5, 4]) == 10
 assert max_subarray_linear([1, -1, -3, -4, -1, 2, 1, -5, 9]) == 9
-assert max_subarray_linear([]) == ([], 0)
+assert max_subarray_linear([]) == 0
 assert max_subarray_linear([11]) == 11
 assert max_subarray_linear([1, 2, 3, 4]) == 10
 assert max_subarray_linear([-1, -2, -3, -4]) == -1
