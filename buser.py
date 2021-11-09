@@ -27,6 +27,7 @@ assert index_word('ramiro alvaro', 'alvaro') == 'ramiro alvaro'.find('alvaro')
 
 """
 Desafio empresa Buser CamelCase
+In [62]: from re import sub
 
 In [63]: strParam = 'cats AND*Dogs-are%Awesome'
 
