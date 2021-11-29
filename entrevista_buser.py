@@ -25,11 +25,13 @@ Output: 3
 """
 from typing import List
 
+VISITED = 2
+
 
 def process_island(i: int, j: int, grid: List[List]) -> None:
     try:
         if grid[i][j] == 1:
-            grid[i][j] = 2
+            grid[i][j] = VISITED
             process_island(i - 1, j, grid)
             process_island(i + 1, j, grid)
             process_island(i, j - 1, grid)
