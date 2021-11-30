@@ -25,13 +25,14 @@ Output: 3
 """
 from typing import List
 
-VISITED = 2
+ISLAND = 2
+LAND = 1
 
 
 def process_island(i: int, j: int, grid: List[List]) -> None:
     try:
-        if grid[i][j] == 1:
-            grid[i][j] = VISITED
+        if grid[i][j] == LAND:
+            grid[i][j] = ISLAND
             process_island(i - 1, j, grid)
             process_island(i + 1, j, grid)
             process_island(i, j - 1, grid)
@@ -43,9 +44,9 @@ def process_island(i: int, j: int, grid: List[List]) -> None:
 def island(grid: List[List]) -> int:
     result = 0
 
-    for i, _ in enumerate(grid):
-        for j, value in enumerate(grid[i]):
-            if value == 1:
+    for i, row in enumerate(grid):
+        for j, element in enumerate(row):
+            if element == LAND:
                 result += 1
                 process_island(i, j, grid)
 
